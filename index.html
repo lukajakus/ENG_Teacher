@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="TypeRush English – build English vocabulary and typing speed with offline daily practice.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>TypeRush English – Practice with purpose</title>
+</head>
+<body data-theme="dark">
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Primary navigation">
+    <a class="brand" href="#practice" id="brandLink" aria-label="TypeRush English home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M6.5 9h1m3 0h1m3 0h1m3 0h1M6.5 12h1m3 0h1m3 0h1m3 0h1M8 15h8" stroke-linecap="round"/></svg></span>
+      <span class="brand-copy">type<span>rush</span><small>ENGLISH LAB</small></span>
+    </a>
+    <div class="side-label" data-i18n="workspace">WORKSPACE</div>
+    <nav class="nav-links" aria-label="Sections">
+      <button class="nav-link active" data-view="practice"><span class="nav-ico">⌨</span><span data-i18n="practice">Practice</span><span class="nav-active-dot"></span></button>
+      <button class="nav-link" data-view="vocabulary"><span class="nav-ico">▤</span><span data-i18n="vocabulary">Vocabulary</span></button>
+      <button class="nav-link" data-view="progress"><span class="nav-ico">▥</span><span data-i18n="progress">Progress</span></button>
+      <button class="nav-link" data-view="settings"><span class="nav-ico">⚙</span><span data-i18n="settings">Settings</span></button>
+    </nav>
+    <div class="side-bottom">
+      <div class="daily-card"><span class="daily-icon">✦</span><div><small data-i18n="dailyStreak">DAILY STREAK</small><strong id="streakAside">0 days</strong></div></div>
+      <div class="side-footer"><span class="status-dot"></span><span data-i18n="offlineReady">Offline ready</span><span class="version">v1.0</span></div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div class="breadcrumbs"><span data-i18n="workspace">Workspace</span><span class="crumb-sep">/</span><strong id="currentSection">Practice</strong></div>
+      <div class="top-actions">
+        <span class="top-pill"><span class="green-dot"></span><span data-i18n="localPrivate">Private & local</span></span>
+        <button type="button" class="icon-button" id="themeQuick" title="Toggle theme" aria-label="Toggle theme">☾</button>
+      </div>
+    </header>
+
+    <div class="content-width">
+      <section id="view-practice" class="view active" aria-label="Practice">
+        <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="yourDailyPractice">YOUR DAILY PRACTICE</span></div>
+          <h1><span data-i18n="practiceHeading">Build your English,</span> <em data-i18n="oneKeystroke">one keystroke at a time.</em></h1>
+          <p data-i18n="practiceSub">Fresh English texts. Sharper vocabulary. Better typing, every day.</p>
+        </div>
+        <div class="mode-bar" role="group" aria-label="Practice mode">
+          <button type="button" class="mode-btn active" data-mode="quick"><span class="mode-ico">◷</span><span data-i18n="quickTest">Quick Test</span></button>
+          <button type="button" class="mode-btn" data-mode="paragraph"><span class="mode-ico">≡</span><span data-i18n="paragraph">Paragraph</span></button>
+          <button type="button" class="mode-btn" data-mode="endless"><span class="mode-ico">∞</span><span data-i18n="endless">Endless</span></button>
+          <button type="button" class="mode-btn" data-mode="vocabulary"><span class="mode-ico">▤</span><span data-i18n="vocabulary">Vocabulary</span></button>
+          <button type="button" class="mode-btn" data-mode="mistakes"><span class="mode-ico">↻</span><span data-i18n="mistakePractice">Mistakes</span></button>
+        </div>
+
+        <div class="control-card">
+          <div class="control-field"><label for="levelSelect" data-i18n="level">LEVEL</label>
+            <select id="levelSelect"><option value="A1">A1 · Beginner</option><option value="A2">A2 · Elementary</option><option value="B1" selected>B1 · Intermediate</option><option value="B2">B2 · Upper Intermediate</option><option value="C1">C1 · Advanced</option><option value="C2">C2 · Proficient</option><option value="random">✧ · Random level</option></select>
+          </div>
+          <div class="control-field"><label for="topicSelect" data-i18n="topic">TOPIC</label>
+            <select id="topicSelect"><option value="random" data-i18n="randomTopics">✧ · Random topics</option><option value="daily">Everyday life</option><option value="travel">Travel & culture</option><option value="work">Work & business</option><option value="tech">Technology</option><option value="science">Science & learning</option><option value="history">History & politics</option><option value="stories">Short stories</option><option value="nature">Nature & society</option></select>
+          </div>
+          <div class="control-field timer-field"><label for="durationSelect" data-i18n="duration">DURATION</label><select id="durationSelect"><option value="30">30 seconds</option><option value="60" selected>60 seconds</option><option value="120">120 seconds</option></select></div>
+          <button type="button" id="focusButton" class="subtle-btn focus-toggle" aria-pressed="false"><span>⛶</span><span data-i18n="focusMode">Focus mode</span></button>
+        </div>
+
+        <div class="typing-panel" id="typingPanel">
+          <div class="panel-heading"><div><span class="live-dot"></span><strong data-i18n="typingSession">TYPING SESSION</strong><span class="sep-small">/</span><span class="muted" id="sessionDescriptor">B1 · Intermediate</span></div><div class="panel-shortcut">CTRL + ENTER <span data-i18n="newText">NEW TEXT</span></div><button type="button" id="focusExitButton" class="focus-exit"><span>×</span> <span data-i18n="exitFocus">Exit focus</span></button></div>
+          <div class="metrics-grid" aria-live="off">
+            <div class="metric"><div class="metric-label" data-i18n="speed">SPEED</div><div class="metric-main"><strong id="wpmValue">0</strong><span>WPM</span></div><div class="metric-foot" data-i18n="wordsPerMinute">words per minute</div></div>
+            <div class="metric"><div class="metric-label" data-i18n="accuracy">ACCURACY</div><div class="metric-main"><strong id="accuracyValue">100</strong><span>%</span></div><div class="metric-foot" data-i18n="charactersCorrect">correct characters</div></div>
+            <div class="metric" id="timerMetric"><div class="metric-label" id="timeLabel">TIME LEFT</div><div class="metric-main"><strong id="timeValue">01:00</strong></div><div class="metric-foot" id="timeFoot">60 second test</div></div>
+          </div>
+          <div class="text-surface" id="textSurface" aria-label="Text to type">
+            <div class="text-meta"><span id="textMeta">RANDOM TEXT · B1</span><span class="text-percent" id="progressPercent">0%</span></div>
+            <div class="progress-track"><div class="progress-fill" id="typingProgress" style="width:0%"></div></div>
+            <div class="target-text" id="targetText" aria-hidden="true"></div>
+          </div>
+          <div class="typing-input-wrap" id="typingInputWrap"><span class="entry-icon">›</span><input id="typingInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" aria-label="Type the English text here" placeholder="Click here and start typing..." maxlength="40000"><span class="entry-live" id="inputStateText">READY</span></div>
+          <p class="tip-line" id="typingTip"><span>✧</span> <span data-i18n="typingTip">Click the input and start typing. Mistakes are highlighted instantly.</span></p>
+          <div class="panel-actions"><div class="action-group"><button type="button" id="restartButton" class="subtle-btn"><span>↺</span> <span data-i18n="restart">Restart</span></button><button type="button" id="pauseButton" class="subtle-btn"><span id="pauseGlyph">Ⅱ</span> <span id="pauseLabel" data-i18n="pause">Pause</span></button><button type="button" id="finishButton" class="subtle-btn finish-btn" hidden><span>✓</span> <span data-i18n="finish">Finish</span></button></div><button type="button" id="newTextButton" class="primary-btn"><span>⟳</span> <span data-i18n="newText">New text</span><kbd>↵</kbd></button></div>
+          <div class="pause-overlay" id="pauseOverlay" hidden><div class="pause-mark">Ⅱ</div><h3 data-i18n="paused">Session paused</h3><p data-i18n="resumeHint">Resume when you're ready.</p><button type="button" class="primary-btn" id="resumeOverlayBtn" data-i18n="resume">Resume</button></div>
+        </div>
+        <div class="below-panel"><div class="hint-block"><span class="hint-symbol">✦</span><div><strong data-i18n="learnAsYouType">Learn as you type</strong><p data-i18n="learnHint">Finish a passage to discover useful words and their Croatian meanings.</p></div></div><div class="keyboard-hint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> <span data-i18n="generateText">Generate text</span></div></div>
+      </section>
+
+      <section id="view-vocabulary" class="view" aria-label="Vocabulary">
+        <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="personalWordbook">PERSONAL WORDBOOK</span></div><h1><span data-i18n="vocabHeading">Words worth</span> <em data-i18n="remembering">remembering.</em></h1><p data-i18n="vocabSub">Save English expressions and revisit them whenever you like.</p></div>
+        <div class="section-topline"><div class="info-count"><span id="savedCount">0</span> <span data-i18n="savedWords">saved words</span></div><button type="button" id="practiceSavedBtn" class="primary-btn" data-i18n="practiceSaved">Practice saved words</button></div>
+        <label class="search-wrap"><span>⌕</span><input type="search" id="vocabSearch" placeholder="Search English or Croatian..." autocomplete="off" aria-label="Search vocabulary"></label>
+        <div class="word-grid" id="wordGrid"></div><div class="empty-state" id="vocabEmpty" hidden><span class="empty-symbol">▤</span><h3 data-i18n="noWords">No words saved yet</h3><p data-i18n="noWordsHint">Complete a typing test and save words from the results.</p><button type="button" class="subtle-btn" data-go="practice" data-i18n="startPractice">Start practicing</button></div>
+      </section>
+
+      <section id="view-progress" class="view" aria-label="Progress">
+        <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="yourGrowth">YOUR GROWTH</span></div><h1><span data-i18n="progressHeading">Progress you can</span> <em data-i18n="measure">measure.</em></h1><p data-i18n="progressSub">A record of every completed test, saved privately on this device.</p></div>
+        <div class="overview-grid">
+          <div class="overview-card"><span data-i18n="completedTests">COMPLETED TESTS</span><strong id="overviewTests">0</strong><small data-i18n="allTime">All time</small></div>
+          <div class="overview-card"><span data-i18n="averageWpm">AVERAGE WPM</span><strong id="overviewAverage">—</strong><small data-i18n="typingSpeed">Typing speed</small></div>
+          <div class="overview-card"><span data-i18n="personalBest">PERSONAL BEST</span><strong id="overviewBest">—</strong><small data-i18n="highestSpeed">Highest speed</small></div>
+          <div class="overview-card"><span data-i18n="averageAccuracy">AVG. ACCURACY</span><strong id="overviewAccuracy">—</strong><small data-i18n="totalTime">Total time</small><small id="overviewTime">0 min</small></div>
+        </div>
+        <div class="chart-card"><div class="chart-title"><div><h2 data-i18n="typingTrend">Typing speed over time</h2><p data-i18n="lastSessions">Your last 20 completed sessions</p></div><div class="chart-key"><span></span> WPM</div></div><div class="chart" id="progressChart"></div></div>
+        <div class="chart-card"><div class="chart-title"><div><h2 data-i18n="milestones">Milestones</h2><p data-i18n="goalHint">Reach each speed with at least 95% accuracy</p></div></div><div class="goal-grid" id="goalsGrid"></div></div>
+        <div class="chart-card"><div class="chart-title"><div><h2 data-i18n="recentSessions">Recent sessions</h2><p data-i18n="recentHint">A closer look at your latest practice</p></div></div><div id="historyContainer"></div></div>
+      </section>
+
+      <section id="view-settings" class="view" aria-label="Settings">
+        <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="makeItYours">MAKE IT YOURS</span></div><h1><span data-i18n="settingsHeading">Your practice,</span> <em data-i18n="yourWay">your way.</em></h1><p data-i18n="settingsSub">Adjust your typing experience. Changes are saved automatically.</p></div>
+        <div class="settings-card"><h2 data-i18n="appearance">Appearance & language</h2>
+          <div class="settings-row"><div><strong data-i18n="colorTheme">Color theme</strong><p data-i18n="themeHint">Choose the visual style you prefer</p></div><select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option></select></div>
+          <div class="settings-row"><div><strong data-i18n="interfaceLanguage">Interface language</strong><p data-i18n="langHint">Texts for typing will always be in English</p></div><select id="languageSelect"><option value="en">English</option><option value="hr">Hrvatski</option></select></div>
+          <div class="settings-row"><div><strong data-i18n="englishVariant">English variant</strong><p data-i18n="variantHint">British or American spelling in generated exercises</p></div><select id="variantSelect"><option value="us">American English</option><option value="uk">British English</option></select></div>
+        </div>
+        <div class="settings-card"><h2 data-i18n="typingPreferences">Typing preferences</h2>
+          <label class="settings-row" for="punctuationToggle"><div><strong data-i18n="punctuation">Punctuation</strong><p data-i18n="punctuationHint">Practice commas, periods and apostrophes</p></div><input class="toggle" id="punctuationToggle" type="checkbox" checked></label>
+          <label class="settings-row" for="caseToggle"><div><strong data-i18n="capitalLetters">Capital letters</strong><p data-i18n="caseHint">Practice upper and lower case</p></div><input class="toggle" id="caseToggle" type="checkbox" checked></label>
+          <label class="settings-row" for="numbersToggle"><div><strong data-i18n="numbers">Numbers</strong><p data-i18n="numbersHint">Add sentences containing dates and numbers</p></div><input class="toggle" id="numbersToggle" type="checkbox"></label>
+          <label class="settings-row" for="soundToggle"><div><strong data-i18n="typingSound">Typing sound</strong><p data-i18n="soundHint">Subtle key press feedback</p></div><input class="toggle" id="soundToggle" type="checkbox"></label>
+          <label class="settings-row" for="timerToggle"><div><strong data-i18n="showTimer">Show timer</strong><p data-i18n="timerHint">Hide the clock to practice without pressure</p></div><input class="toggle" id="timerToggle" type="checkbox" checked></label>
+        </div>
+        <div class="settings-card danger-card"><h2 data-i18n="yourData">Your data</h2><div class="settings-row"><div><strong data-i18n="storedLocally">Stored on your device</strong><p data-i18n="storedHint">Your history and vocabulary never leave your browser.</p></div><button type="button" class="danger-btn" id="clearDataBtn" data-i18n="clearData">Clear history</button></div></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="resultsBackdrop" hidden>
+  <div class="results-dialog" role="dialog" aria-modal="true" aria-labelledby="resultsTitle" tabindex="-1">
+    <button type="button" class="modal-close" id="closeResults" aria-label="Close results">×</button>
+    <div class="result-bloom">✦</div><div class="eyebrow centered" data-i18n="sessionComplete">SESSION COMPLETE</div><h2 id="resultsTitle" data-i18n="wellDone">Practice complete.</h2><p id="resultsCaption" class="result-sub"></p>
+    <div class="result-stats" id="resultStats"></div>
+    <div class="result-chart-wrap"><div class="mini-head"><span data-i18n="speedDuringTest">SPEED DURING TEST</span><span>WPM</span></div><div id="resultChart"></div></div>
+    <div class="results-vocab"><div class="mini-head"><span data-i18n="wordsFromText">WORDS FROM THIS TEXT</span><span data-i18n="tapToSave">TAP TO SAVE</span></div><div id="resultVocabGrid" class="result-words"></div></div>
+    <div class="results-actions"><button type="button" class="subtle-btn" id="reviewProgressBtn" data-i18n="viewProgress">View progress</button><button type="button" class="primary-btn" id="nextSessionBtn"><span>⟳</span> <span data-i18n="nextText">Next text</span></button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
